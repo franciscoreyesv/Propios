@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <script src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
+
+  <!-- http://garden.zendesk.com -->
+  <link rel="stylesheet" href="https://assets.zendesk.com/apps/sdk-assets/css/2/zendesk_garden.css" type="text/css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" -->
+
+  <!-- CSS y Js de ZerviZ -->
+  <script type="text/javascript" src="js/zerviz/tools.js"></script>
+  <link rel="stylesheet" href="css/zerviz/tools.css" type="text/css">
+
+<style>
+  tbody, td {
+    cursor: pointer;
+  }
+  thead{
+    background: #00913D;
+    color: white;
+  }
+  table{
+    font-size: 1em;
+  }
+
+
+  .loader {
+      border: 6px solid #f3f3f3; /* Light grey */
+      border-top: 6px solid #3498db; /* Blue */
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      float: left;
+  }
+
+  @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+  }
+
+</style>
+</head>
+
+
+<body>
+
+  <div class="loading">
+    <div class="loader"></div>
+    <div class="c-tooltip c-arrow c-arrow--l u-va-top">Buscando...</div>
+  </div>
+
+<div id="content"></div>
+
+<script id="requester-template" type="text/x-handlebars-template">
+
+  <div class="card">
+    <div class="card-header">
+       <img src="browsers16.png" alt="Consultar"  onclick="showModal()"> Información
+    </div>
+
+    <div class="dropdown-menu2">
+      <form class="px-4 py-3">
+
+          <ul class="list-group list-group-flush">
+            <li class=""><b>Código:</b> {{CodigoEmpresa}} - {{CodigoAfiliado}}</li>
+            <li class=""><b>Empresa:</b> {{NombreEmpresa}}</li>
+            <li class=""><b>Parentesco:</b> {{NombreParentesco}}</li>
+            <li class=""><b>Pasaporte:</b> {{Pasaporte}}</li>
+            <li class=""><b>Cédula:</b> {{Cedula}}</li>
+            <li class=""><b>Carnet:</b> {{Carnet}}</li>
+            <li class=""><b>Nss:</b> {{Nss}}</li>
+            <li class=""><b>Sexo:</b> <span class="badge badge-info">{{Sexo}}</span></li>
+            <li class=""><b>Edad:</b> {{Edad}}</li>
+            <li class=""><b>Facturado:</b> <span class="badge badge-info">{{#getBoolean Facturado}}{{/getBoolean}}</span></li>
+            <li class=""><b>Unipago:</b> <span class="badge badge-info">{{#getBoolean EstatusUnipago}}{{/getBoolean}}</span></li>
+            <li class=""><b>Año Cobertura:</b> {{#formatDate PeriodoCoberturaDesde}}{{/formatDate}} al {{#formatDate PeriodoCoberturaHasta}}{{/formatDate}}</li>
+            <li class=""><b>Estatus:</b> <span class="badge badge-primary">{{#getBoolean Estatus}}{{/getBoolean}}</span></li>
+          </ul>
+
+      </form>
+    </div>
+  </div>
+</script>
+
+
+<script id="error-template" type="text/x-handlebars-template">
+  <p>{{status}} - {{statusText}} Error. Por Favor contacte con el Administrador.</p>
+</script>
+
+
+<div id="footer"></div>
+
+  <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/main.js"></script>
+
+
+<script>
+
+
+</script>
+
+</body>
+</html>

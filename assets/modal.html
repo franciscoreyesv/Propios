@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- http://garden.zendesk.com -->
+  <script src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
+  <script type="text/javascript" src="js/zerviz/tools.js"></script>
+  <script type="text/javascript" src="js/libraries/numberFormatHelper.js"></script>
+
+
+  <link rel="stylesheet" href="https://assets.zendesk.com/apps/sdk-assets/css/2/zendesk_garden.css" type="text/css">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+  <!-- CSS DE CAMPO TIPO FECHA  -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap1.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="menu-left.css" type="text/css">
+  <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" -->
+
+
+  <style>
+
+@media (min-width: 576px){
+  .form-inline .form-control {
+      display: inline-block;
+      width: 500px;
+      vertical-align: middle;
+  }
+}
+
+@font-face {
+font-family: 'MuseoSans';
+src: url('fonts/MuseoSans/MuseoSans_900.otf') format('opentype'),
+    font-weight: normal;
+    font-style: normal;
+}
+
+  body {
+    font-family: 'MuseoSans', verdana;
+    font-size: 12px;
+  }
+
+  .table thead{
+      background: #00B0F6;
+      color: white;
+    }
+
+    table{
+      font-size: 0.97em;
+    }
+
+  	#fields_form{
+  		width: 50%;
+  		margin: 0 auto;
+  	}
+
+    .col-izq-pedido{
+      width: 50%;
+      float: left;
+    }
+
+    .col-der-pedido{
+      width: 50%;
+      float: right;
+    }
+    #c_item{
+      text-align: center;
+    }
+
+  .table {
+      width: 100%;
+      margin-bottom: 1rem;
+      background-color: transparent;
+      border-collapse: separate;
+  }    
+
+.table thead th {
+    vertical-align: bottom;
+    /* border-bottom: 2px solid #dee2e6; */
+    text-align: center;
+    font-weight: bold;
+}
+
+.card-header {
+    padding: 0px  ; 
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    /* border-bottom: 1px solid rgba(0,0,0,.125); */
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 0.45rem;
+}
+
+.table td {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: none;
+    border-bottom: 1px solid #dee2e6;
+
+}
+
+.table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: none;
+    border-bottom: 1px solid #dee2e6;
+
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    margin-right: 10px;
+    width: fit-content;
+}
+
+
+.btn-link {
+    font-weight: 400;
+    color: #007bff;
+    background-color: transparent;
+    font-size: 13px;
+}
+
+.loader {
+    border: 6px solid #f3f3f3; /* Light grey */
+    border-top: 6px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    float: left;
+}
+  </style>
+</head>
+<body>  
+
+<!-- tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cobertura</a>
+  </li>
+
+
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Históricos</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Núcleo Familiar</a>
+  </li>
+
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+  <br>
+    <div class="loading">
+      <div class="loader"></div>
+      <div class="c-tooltip c-arrow c-arrow--l u-va-top">Buscando...</div>
+    </div>
+
+      <div id="content"></div>
+      <!-- COBERTURAS -->
+
+      <script id="requester-template-coberturas" type="text/x-handlebars-template">
+          <br>
+            <form class="form-inline">
+              <div class="form-group">
+                <label for="plan">Plan</label>
+                <input type="text" id="plan" class="form-control mx-sm-3 form-control-sm" aria-describedby="plan" value="{{Plan}}" disabled>
+              </div>
+              
+            </form>
+
+          <br>
+
+            <div id="accordion">
+            {{#each Grupos}}
+
+              <div class="card">
+                <div class="card-header" id="heading{{@index}}">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
+                  <i class="fas fa-chevron-circle-right fas-1x" style="color: dodgerblue;"></i>
+                      {{Grupo}}
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapse{{@index}}" class="collapse " aria-labelledby="heading{{@index}}" data-parent="#accordion">
+                  <div class="card-body">
+
+
+                    <!-- TABLA DE LOS SUBGRUPOS -->
+                      <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                              <table class="table table-hover table-sx">
+                                  <caption>:: Listados de Coberturas</caption>
+
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Coberturas</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Días de Espera</th>
+                                    <th scope="col">Consumo</th>
+                                    <th scope="col">Límite del Beneficio</th>
+
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {{#each Beneficios}}
+                                    <tr>                          
+                                      <th scope="row">{{Beneficio}}</th>
+                                      <td>{{#getCobertura  this}}{{/getCobertura}}</td>
+                                      <td>{{DiasEspera}} día(s) de espera</td>
+                                      <td>{{Consumo}}</td>
+                                      <td><span class="badge badge-info">{{#getBoolean LimitePorAnioCobertura}}{{/getBoolean}}</span></td>
+                                    </tr>
+                                  {{/each}}
+                                </tbody>
+                              </table>              
+                        </div>
+                      </div>
+                    <!-- FIN TABLA DE LOS SUBGRUPOS -->
+
+
+                  </div>
+                </div>
+              </div>
+            {{/each}}
+
+
+                <div>
+                  <caption>::Listados de los Planes</caption>
+                </div>
+            </div>
+
+        <br />
+      </script>
+  </div>
+    <!--  FIN COBERTURAS -->
+
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <br />
+
+    <div id="contentHistorico">
+        <div class="card">
+          <div class="card-body">
+
+
+            <!-- FILTROS PARA BUSQUEDA -->
+              <div id="accordion">
+                <div class="card">
+                  <div class="filtro_busqueda card-header" id="headingOne">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="FALSRE" aria-controls="collapseOne">
+                        Filtro para Búsqueda
+                      </button>
+
+                    </h5>
+                  </div>
+
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+
+                              <div class="card1">
+                                <div class="filtro_fecha card-body">
+
+                                  <form>
+                                    <div class="input-daterange form-row"  id="datepicker">
+                                      <div class="col">
+                                        <input type="text" name="start" id="start" class="form-control form-control-sm fecha" placeholder="Fecha Desde" autocomplete="off">
+                                      </div>
+                                      <div class="col">
+                                        <input type="text" name="end" id="end" class="form-control form-control-sm fecha" placeholder="Fecha Hasta"  autocomplete="off">
+                                      </div>
+                                      
+                                      <div class="col">
+                                          <button type="button" class="btn btn-primary btn-sm" onclick="search()">Buscar</button>
+                                      </div>
+
+                                      <div id="gifsearch"></div>
+
+                                    </div>
+                                  </form>
+
+                                </div>
+                              </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <!-- ///////////// -->
+                  <input type="hidden"  name="carnet" id="carnet" value={{carnet}}>
+                <div id="contentHistorico2"></div>
+                  <script id="requester-template-historico" type="text/x-handlebars-template">  
+                      <!-- TABLA DE LOS HISTORICOS -->
+                        <div class="tab-content" id="v-pills-tabContent">
+                          <div class="tab-pane fade show active table-hover" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <table class="table table-hover table-sx">
+                                    <caption>Listados de Históricos</caption>
+
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Autorización</th>
+                                      <th scope="col">Prestados</th>
+                                      <th scope="col">Fecha</th>
+                                      <th scope="col">Tipo</th>
+                                      <th scope="col">Valor</th>
+                                      <th scope="col">Cubierto</th>
+                                      <th scope="col">Diferencia</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {{#each data}}
+                                    <tr>
+                                      <th scope="row">{{NumeroAutorizacion}}</th>
+                                      <td>{{Prestador}}</td>
+                                      <td>{{#formatDate Fecha}}{{/formatDate}}</td>
+                                      <td>{{Tipo}}</td>
+                                      <td>{{numberFormat Valor thousandsSep="." decimalSep=","}}</td>
+                                      <td>{{numberFormat Cubierto thousandsSep="." decimalSep=","}}</td>
+                                      <td>{{numberFormat DiferenciaAfiliado thousandsSep="." decimalSep=","}}</td>
+                                    </tr>
+                                  {{/each}}                                    
+                                  </tbody>
+                                </table>              
+                          </div>
+                        </div>
+                      <!-- FIN TABLA DE LOS HISTORICOS -->
+                  </script>
+
+          </div>
+        </div>
+    </div>
+
+  </div>
+
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+   <br />
+  
+    <div id="contentNucleoFamiliar">    </div>
+
+      <script id="requester-template-nucleo-familiar" type="text/x-handlebars-template">  
+
+        <div class="card">
+          <div class="card-body">
+                      <!-- TABLA DE LOS NUCLEO FAMILIAR -->
+                        <div class="tab-content" id="v-pills-tabContent">
+                          <div class="tab-pane fade show active table-hover" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <table class="table table-hover table-sx">
+                                    <caption>Listados de Nucleo Familiar</caption>
+
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Carnet</th>
+                                      <th scope="col">Nombre</th>
+                                      <th scope="col">Apellido</th>
+                                      <th scope="col">Parentesco</th>
+                                      <th scope="col">Fecha de Ingreso</th>
+                                      <th scope="col">Edad</th>                              
+                                      <th scope="col">Estatus</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {{#each this}}
+                                    <tr>
+                                      <td  scope="row">{{Carnet}}</td>
+                                      <td>{{Nombre}}</td>
+                                      <td>{{Apellido}}</td>
+                                      <td>{{NombreParentesco}}</td>
+                                      <td>{{#formatDate FechaIngreso}}{{/formatDate}}</td> 
+                                      <td>{{Edad}}</td> 
+                                      <td><span class="badge badge-primary">{{#getBoolean Estatus}}{{/getBoolean}}</span></td> 
+                                    </tr>
+                                    {{/each}}                                    
+                                  </tbody>
+                                </table>              
+                          </div>
+                        </div>
+                      <!-- FIN TABLA DE LOS NUCLEO FAMILIAR -->
+          </div>
+        </div>
+
+      </script>
+
+  </div>
+</div>
+<!-- fin tabs -->
+
+
+
+
+  <!-- https://github.com/zendesk/zendesk_app_framework_sdk -->
+  <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+<!--   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ -->  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+
+  <script type="text/javascript" src="js/modal.js"></script>
+
+  <!-- JS DE CAMPO TIPO FECHA  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.es.min.js"></script>
+
+<script>
+
+  $(document).ready(function(){
+
+    Handlebars.registerHelper('getCobertura', function(context, options) {
+      var limite = '';
+      if (context.Limite == 0){
+        limite = ' Ilímitado';
+      }else{  
+        limite = ', hasta '+context.Limite;
+      }
+
+      return context.Cobertura +limite;//options.fn(context);
+    });
+
+  });
+
+</script>
+
+</body>
+</html>

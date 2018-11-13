@@ -1,0 +1,28 @@
+{
+  "name": "Datos del Afiliado",
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "defaultLocale": "en",
+  "private": true,
+  "location": {
+    "support": {
+      "user_sidebar":{
+        "url": "assets/user.html",
+        "autoHide": false
+      },
+      "ticket_sidebar": {
+        "url":"assets/iframe.html",
+        "autoHide": false
+      },
+      "new_ticket_sidebar": {
+        "url":"assets/iframe.html",
+        "autoHide": false
+      }
+    }    
+  },
+  "version": "1.4",
+  "frameworkVersion": "2.0"
+}
